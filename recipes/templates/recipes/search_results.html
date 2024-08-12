@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search for Recipes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            zoom: 70%;
+        }
+        .form-container, .results-container {
+            flex: 1;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container {
+            margin-right: 10px; /* Space between the form and results */
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: calc(100% - 22px); /* Adjust width to account for padding and border */
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button[type="submit"] {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .results h2 {
+            margin-top: 0;
+        }
+        .results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .results li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .results li:last-child {
+            border-bottom: none;
+        }
+        .results a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+        .results a:hover {
+            text-decoration: underline;
+        }
+        .no-results {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+            padding: 5px 10px;
+            display: flex;
+            justify-content: flex-end; /* Aligns content to the right */
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .navbar a.button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .navbar a.button:hover {
+            background-color: #45a049;
+        }
+        .navbar a.back-button {
+            background-color: #6c757d;
+        }
+        .navbar a.back-button:hover {
+            background-color: #5a6268;
+        }
+        .back-button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'recipes:list' %}" class="back-button">Back to Recipes</a>
+        <a href="{% url 'search' %}" class="button">Search Recipe</a>
+        <a href="{% url 'logout' %}" class="button">Logout</a>
+    </div>
+    <h1>Search for Recipes</h1>
+    <div class="container">
+        <div class="form-container">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        <div class="results-container">
+            {% if recipes %}
+                <h2>Search Results:</h2>
+                <ul>
+                    {% for recipe in recipes %}
+                        <li>
+                            <a href="{% url 'recipes:detail' recipe.pk %}">{{ recipe.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if chart %}
+                    <h2>Chart:</h2>
+                    <img src="data:image/png;base64,{{ chart }}" alt="Chart">
+                {% endif %}
+            {% else %}
+                <p class="no-results">No recipes found matching your query.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

@@ -21,7 +21,7 @@
         a.button {
             display: inline-block;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 0.7em;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
@@ -42,7 +42,7 @@
         .navbar a.button {
             display: inline-block;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 0.7em;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
@@ -63,29 +63,48 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .back-button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+            
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
+        <a href="{% url 'recipes:list' %}" class="back-button">Back to Recipe List</a>
+        <a href="{% url 'search' %}" class="button">Search Recipe</a>
         <a href="{% url 'logout' %}" class="button">Logout</a>
     </div>
     <div class="detail-container">
-    <h2>{{ object.title }}</h2>
-    <div class="details">
-        <img src="{{ object.pic.url }}" width="400" height="auto" alt="{{ object.title }}" />
-        <p><strong>Name:</strong> {{ object.title }}</p>
-        <p><strong>Description:</strong> {{ object.description }}</p>
-        <p><strong>Ingredients:</strong></p>
-        <ul>
-            {% for ingredient in object.ingredients.all %}
-                <li>{{ ingredient.name }}</li>
-            {% endfor %}
-        </ul>
-        <p><strong>Preparation:</strong> {{ object.preparation }}</p>
-        <p><strong>Cooking Time:</strong> {{ object.cooking_time }} minutes</p>
-        <p><strong>Level:</strong> {{ object.calculate_difficulty }}</p>
+        <h2>{{ object.title }}</h2>
+        <div class="details">
+            <img src="{{ object.pic.url }}" width="400" height="auto" alt="{{ object.title }}" />
+            <p><strong>Name:</strong> {{ object.title }}</p>
+            <p><strong>Description:</strong> {{ object.description }}</p>
+            <p><strong>Category:</strong> {{ object.category}}</p>
+            <p><strong>Ingredients:</strong></p>
+            <ul>
+                {% for ingredient in object.ingredients.all %}
+                    <li>{{ ingredient.name }}</li>
+                {% endfor %}
+            </ul>
+            <p><strong>Preparation:</strong> {{ object.preparation }}</p>
+            <p><strong>Cooking Time:</strong> {{ object.cooking_time }} minutes</p>
+            <p><strong>Level:</strong> {{ object.calculate_difficulty }}</p>
+            <p><strong>Date Created:</strong> {{ object.created_at }}</p>
+        </div>
     </div>
-    <a href="{% url 'recipes:list' %}" class="button">Back to Recipe List</a>
-</div>
 </body>
 </html>

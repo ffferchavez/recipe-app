@@ -1,4 +1,3 @@
-<!-- recipes/templates/recipes/main.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +33,7 @@
         a.button {
             display: inline-block;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 0.7em;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
@@ -56,7 +55,7 @@
         .navbar a.button {
             display: inline-block;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 0.7em;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
@@ -78,35 +77,52 @@
             margin-left: auto;
             margin-right: auto;
         }
+        .back-button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .back-button:hover {
+            background-color: #5a6268;
+            
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
+        <a href="{% url 'recipes:home' %}" class="back-button">Back to Home</a>
+        <a href="{% url 'search' %}" class="button">Search Recipe</a>
         <a href="{% url 'logout' %}" class="button">Logout</a>
     </div>
     <div class="list-container">
-    <h1>List of Recipes</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Recipe Title</th>
-                <th>Recipe Image</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for object in object_list %}
+        <h1>List of Recipes</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
-                    <td><img src="{{ object.pic.url }}" width="200" height="150" alt="{{ object.title }}" /></td>
+                    <th>Recipe Name</th>
+                    <th>Recipe Image</th>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2">No recipes available.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'recipes:home' %}" class="button">Back to Home</a>
-</div>
+            </thead>
+            <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+                        <td><img src="{{ object.pic.url }}" width="200" height="150" alt="{{ object.title }}" /></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="2">No recipes available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

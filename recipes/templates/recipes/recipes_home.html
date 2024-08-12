@@ -30,7 +30,7 @@
         .navbar a.button {
             display: inline-block;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 0.7em;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
@@ -77,8 +77,10 @@
         }
         a.button {
             display: inline-block;
+            width: 250px;
+            margin-left: 110px;
             padding: 5px 10px;
-            font-size: 0.9em;
+            font-size: 1.2em;
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
@@ -87,6 +89,20 @@
             transition: background-color 0.3s ease;
         }
         a.button:hover {
+            background-color: #45a049;
+        }
+        a.logout-button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.7em;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        a.logout-button:hover {
             background-color: #45a049;
         }
 
@@ -143,7 +159,7 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="{% url 'logout' %}" class="button">Logout</a>
+        <a href="{% url 'logout' %}" class="logout-button">Logout</a>
     </div>
     <div class="container">
         <div class="welcome-box">
