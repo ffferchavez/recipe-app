@@ -1,0 +1,112 @@
+<!-- recipes/templates/recipes/main.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        a.button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        a.button:hover {
+            background-color: #45a049;
+        }
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+            padding: 5px 10px;
+            display: flex;
+            justify-content: flex-end; /* Aligns content to the right */
+            align-items: center;
+        }
+        .navbar a.button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .navbar a.button:hover {
+            background-color: #45a049;
+        }
+        .list-container {
+            width: 90%;
+            max-width: 1080px;
+            text-align: center;
+            color: #363636;
+            padding: 20px;
+            border-radius: 8px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'logout' %}" class="button">Logout</a>
+    </div>
+    <div class="list-container">
+    <h1>List of Recipes</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Recipe Title</th>
+                <th>Recipe Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
+                    <td><img src="{{ object.pic.url }}" width="200" height="150" alt="{{ object.title }}" /></td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No recipes available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'recipes:home' %}" class="button">Back to Home</a>
+</div>
+</body>
+</html>

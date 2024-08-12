@@ -1,0 +1,160 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Recipe App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: url("{% static 'recipes/images/recipes-bg-2.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+}
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent background */
+            padding: 5px 10px;
+            display: flex;
+            justify-content: flex-end; /* Aligns content to the right */
+            align-items: center;
+            margin-bottom: 200px;
+        }
+        .navbar a.button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .navbar a.button:hover {
+            background-color: #45a049;
+        }
+        .container {
+            width: 90%;
+            max-width: 1080px;
+            text-align: center;
+            color: #363636;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 50px; /* Adds space below navbar */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .welcome-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+        }
+        .welcome-box > div {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+            min-width: 300px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        a.button {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        a.button:hover {
+            background-color: #45a049;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            .welcome-box {
+                flex-direction: column;
+            }
+            .welcome-box > div {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            p {
+                font-size: 1em;
+            }
+            a.button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 0.9em;
+            }
+            .welcome-box > div {
+                padding: 15px;
+            }
+            a.button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            body {
+                background-size: cover;
+                background-position: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-size: contain;
+                background-position: top;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{% url 'logout' %}" class="button">Logout</a>
+    </div>
+    <div class="container">
+        <div class="welcome-box">
+            <div>
+                <h1>Welcome to Recipe App</h1>
+                <p>Your one-stop solution for managing and exploring recipes.</p>
+            </div>
+            <div style="text-align: center;">
+                <a href="{% url 'recipes:list' %}" class="button">Go To Your Recipes</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
