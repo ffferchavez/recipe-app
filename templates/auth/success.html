@@ -2,49 +2,58 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Logged Out</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            color: #3c3c3c;
-            background-color: #f7f7f7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: url("{% static 'recipes/images/recipes-bg-3.jpg' %}") no-repeat center center fixed;
-            background-size: cover;
-        }
-        .message-container {
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
-        }
-        a.button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 1em;
-            background-color: #4CAF50;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        a.button:hover {
-            background-color: #45a049;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        color: #3c3c3c;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url("{% static 'recipes/images/recipes-bg-5.jpg' %}")
+          no-repeat center center fixed;
+        background-size: cover;
+      }
+      .message-container {
+        text-align: center;
+        color: #3c3c3c;
+        background-color: rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .message-container:hover {
+        transform: translateY(-5px); /* Slight lift on hover */
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+      }
+      a.button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1em;
+        background-color: #cad4c7;
+        color: #363636;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      a.button:hover {
+        background-color: #454545;
+        color: #f1f1f1;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="message-container">
-        <h1>You've successfully logged out.</h1>
-        <a href="{% url 'login' %}" class="button">Log In Again</a>
+      <h1>You've successfully logged out.</h1>
+      <p>Logged out by mistake?</p>
+      <a href="{% url 'login' %}" class="button">Log In Again</a>
     </div>
-</body>
+  </body>
 </html>

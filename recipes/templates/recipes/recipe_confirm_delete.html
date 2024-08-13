@@ -1,0 +1,46 @@
+<!-- recipes/recipe_confirm_delete.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Delete Recipe</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        text-align: center;
+      }
+      h2 {
+        color: #f44336;
+      }
+      .button {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.7em;
+        background-color: #4caf50;
+        color: white;
+        text-decoration: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 10px;
+      }
+      .button:hover {
+        background-color: #45a049;
+      }
+      .delete-button {
+        background-color: #f44336;
+      }
+      .delete-button:hover {
+        background-color: #e53935;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Are you sure you want to delete "{{ object.title }}"?</h2>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="button delete-button">Yes, delete</button>
+      <a href="{% url 'recipes:list' %}" class="button">Cancel</a>
+    </form>
+  </body>
+</html>

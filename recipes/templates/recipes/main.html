@@ -1,128 +1,197 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe List</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        h1 {
-            color: #333;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-        }
-        a.button {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 0.7em;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        a.button:hover {
-            background-color: #45a049;
-        }
-        .navbar {
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
-            padding: 5px 10px;
-            display: flex;
-            justify-content: flex-end; /* Aligns content to the right */
-            align-items: center;
-        }
-        .navbar a.button {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 0.7em;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-        .navbar a.button:hover {
-            background-color: #45a049;
-        }
-        .list-container {
-            width: 90%;
-            max-width: 1080px;
-            text-align: center;
-            color: #363636;
-            padding: 20px;
-            border-radius: 8px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .back-button {
-            display: inline-block;
-            padding: 5px 10px;
-            font-size: 0.7em;
-            background-color: #6c757d;
-            color: white;
-            text-decoration: none;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-        .back-button:hover {
-            background-color: #5a6268;
-            
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f0f0f0; /* Light grey background for better contrast */
+        background-image: url("{% static 'recipes/images/recipes-bg-5.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      h1 {
+        color: #363636;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .navbar {
+        background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+        padding: 5px 10px;
+        display: flex;
+        justify-content: flex-end; /* Aligns content to the right */
+        align-items: center;
+        margin-bottom: 50px;
+      }
+
+      .navbar a.button {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.7em;
+        background-color: #cad4c7;
+        color: #363636;
+        text-decoration: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-right: 10px;
+      }
+
+      .navbar a.button:hover {
+        background-color: #454545;
+        color: #f1f1f1;
+      }
+
+      .back-button {
+        display: inline-block;
+        padding: 5px 10px;
+        font-size: 0.7em;
+        background-color: #454545;
+        color: #f1f1f1;
+        text-decoration: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-right: 10px;
+      }
+
+      .back-button:hover {
+        background-color: #cad4c7;
+        color: #363636;
+      }
+
+      .list-container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(
+          255,
+          255,
+          255,
+          0.2
+        ); /* Semi-transparent white background */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      }
+
+      .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(250px, 1fr)
+        ); /* Responsive grid */
+        gap: 20px; /* Spacing between items */
+      }
+
+      .recipe-item {
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* Ensure content does not overflow */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative; /* For positioning the delete button */
+      }
+
+      .recipe-item:hover {
+        transform: scale(1.02); /* Slight zoom effect */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+      }
+
+      .recipe-item img {
+        width: 100%; /* Full width of the container */
+        height: 220px; /* Fixed height for uniformity */
+        object-fit: cover; /* Ensure the image covers the area */
+        border-bottom: 1px solid #ddd; /* Border between image and content */
+      }
+
+      .recipe-item-content {
+        padding: 15px;
+        flex: 1;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      .recipe-item-title {
+        font-size: 1.2em;
+        color: #333;
+        margin: 0;
+        text-decoration: none; /* Remove underline */
+      }
+
+      .recipe-item-actions {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      .recipe-item-actions a {
+        zoom: 80%;
+        text-decoration: none;
+        color: #000000; /* Red color for delete */
+        font-size: 0.9em;
+        cursor: pointer;
+        margin-left: 10px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #fff;
+        border: 1px solid #010101; /* Border for the button */
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      .recipe-item-actions a:hover {
+        background-color: #f44336; /* Background color on hover */
+        color: white; /* Text color on hover */
+      }
+
+      .recipe-item-content a {
+        color: #333;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .recipe-item-content a:hover {
+        color: #4caf50; /* Green color on hover */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="navbar">
-        <a href="{% url 'recipes:home' %}" class="back-button">Back to Home</a>
-        <a href="{% url 'search' %}" class="button">Search Recipe</a>
-        <a href="{% url 'logout' %}" class="button">Logout</a>
+      <a href="{% url 'recipes:home' %}" class="back-button">Back to Home</a>
+      <a href="{% url 'search' %}" class="button">Search Recipe</a>
+      <a href="{% url 'logout' %}" class="button">Logout</a>
     </div>
     <div class="list-container">
-        <h1>List of Recipes</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Recipe Name</th>
-                    <th>Recipe Image</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for object in object_list %}
-                    <tr>
-                        <td><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></td>
-                        <td><img src="{{ object.pic.url }}" width="200" height="150" alt="{{ object.title }}" /></td>
-                    </tr>
-                {% empty %}
-                    <tr>
-                        <td colspan="2">No recipes available.</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+      <h1>Your Recipes</h1>
+      <div class="recipe-grid">
+        {% for object in object_list %}
+        <div class="recipe-item">
+          {% if user.is_superuser %}
+          <div class="recipe-item-actions">
+            <a href="{% url 'recipes:delete' object.id %}" class="delete-button"
+              >Delete</a
+            >
+          </div>
+          {% endif %}
+          <a href="{{ object.get_absolute_url }}" class="recipe-item-content">
+            <img src="{{ object.pic.url }}" alt="{{ object.title }}" />
+            <h2 class="recipe-item-title">{{ object.title }}</h2>
+          </a>
+        </div>
+        {% empty %}
+        <p>No recipes available.</p>
+        {% endfor %}
+      </div>
     </div>
-</body>
+  </body>
 </html>

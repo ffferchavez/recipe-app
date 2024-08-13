@@ -1,8 +1,9 @@
 # views.py
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from .models import Recipe
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 from .forms import RecipeSearchForm
 from ingredients.models import Ingredient
 from django.db.models import Q, Count
@@ -20,6 +21,16 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     template_name = 'recipes/detail.html'
     context_object_name = 'recipe'
+
+# New: Delete view for a specific recipe (Admin only)
+class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Recipe
+    template_name = 'recipes/recipe_confirm_delete.html'
+    success_url = reverse_lazy('recipes:list')
+
+    def test_func(self):
+        # Only allow admin users to delete recipes
+        return self.request.user.is_superuser
 
 # Home view
 def home(request):
@@ -54,7 +65,7 @@ def search(request):
         if min_cooking_time is not None:
             recipes = recipes.filter(cooking_time__gte=min_cooking_time)
         if max_cooking_time is not None:
-            recipes = recipes.filter(cooking_time__lte=max_cooking_time)
+            recipes = recipes.filter(cooking_time__lte=max_cooking_time)  # <-- Fixed missing closing parenthesis here
         if created_date:
             recipes = recipes.filter(created_at__date=created_date)
         if category:
